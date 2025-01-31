@@ -52,6 +52,5 @@ while ripetizione:
         
     
     
-print(risultati)
-
+print("Risultati finali:", risultati)
     
