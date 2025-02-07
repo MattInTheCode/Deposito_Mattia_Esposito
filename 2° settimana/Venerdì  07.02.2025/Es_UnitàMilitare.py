@@ -1,3 +1,4 @@
+#classe genitrice
 class UnitaMilitare:
     def __init__(self, nome, numero_soldati):
         self.nome = nome 
@@ -16,6 +17,7 @@ class UnitaMilitare:
         print(self.nome,"RITIRATA!! RITIRATA!! RITIRATA!!")
 
 
+#classi figlie: 
 
 class Fanteria(UnitaMilitare):
     def __init__(self, nome, numero_soldati):
@@ -62,6 +64,12 @@ class Ricognizione(UnitaMilitare):
         print(self.nome, "Conduce momentaneamente la ricognizione")
 
 
+# classe con ereditarieta multipla da  fanteria e ricognizione
+class FanteriaRicognizione(Fanteria, Ricognizione):
+    def __init__(self, nome, numero_soldati):
+        super().__init__(nome, numero_soldati)
+
+#classe non figlia ma che controlla        
 class ControlloMilitare:
     def __init__(self):
         self.unita_registrate = {}
@@ -87,13 +95,16 @@ class ControlloMilitare:
             print("Unità " , nome , " non trovata.")
 
 
+
 controllo = ControlloMilitare()
 
+#richieste all'utente
 
 nome_fanteria= input("Nome da dare alla fanteria:")
 numero_soldati_fanteria = int(input("Numero di soldati:"))
 
 fanteria = Fanteria(nome_fanteria, numero_soldati_fanteria)
+controllo.registra_unita(fanteria)
 
 
 
@@ -101,7 +112,15 @@ nome_artiglieria= input("Nome da dare all'artiglieria':")
 numero_soldati_artiglieria = int(input("Numero di soldati:"))
 
 artiglieria = Artiglieria(nome_artiglieria, numero_soldati_artiglieria)
+controllo.registra_unita(artiglieria)
 
+
+
+nome_sqr_mist = input("nome della squadra mista fanteria + ricognizione:")
+numero_sqr_mist = int(input(" numero di soldati della squadra mista: "))
+
+sqr_mist = FanteriaRicognizione(nome_sqr_mist,numero_sqr_mist)
+controllo.registra_unita(sqr_mist)
 
 controllo.registra_unita(fanteria)
 controllo.registra_unita(artiglieria)
@@ -111,6 +130,15 @@ controllo.mostra_unita()
 richiesta_unita = input("Nome dell'unità da controllare:")
 controllo.dettagli_unita(richiesta_unita)
 
+
+#esecuzioni
+
+
 fanteria.muovi()
 fanteria.costruisci_trincea()
 artiglieria.calibra_artiglieria()
+
+
+sqr_mist.muovi() 
+sqr_mist.costruisci_trincea()
+sqr_mist.conduci_ricognizione()
